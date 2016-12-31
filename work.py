@@ -23,7 +23,7 @@ def analyze_all_job_all_skill():
     skills = get_all_skills()
     for content in contents:
         print "====================================="
-        print "anaylze job id = " + content["JobId"]
+        print "anaylze job id = " + str(content["JobId"])
         skill_ids = []
         for skill in skills:
             if detect_skill(content, skill):

@@ -22,4 +22,28 @@ def get_all_skills():
         results = cursor.fetchall()
         return results 
     connection.close()
-    
+
+def get_all_contents():
+    connection = get_connection()
+    contents = []
+    with connection.cursor() as cursor:
+        sql = "SELECT * FROM Content"
+        cursor.execute(sql)
+        results = cursor.fetchall()
+        return results 
+    connection.close()
+
+
+
+def add_job_skills(job_id, skill_ids):
+    try:
+        print "add skill for job_id = " + str(job_id) + " : " + ",".join(skill_ids)
+        connection = get_connection()
+        with connection.cursor() as cursor:
+            sql = "INSERT IGNORE INTO JobSkill (JobId,SkillId) VALUES(%s,%s)"
+            for skill_id in skill_ids:
+                data = (job_id, skill_id)
+                cursor.execute(sql, data)
+            connection.commit()
+    finally:
+        connection.close()

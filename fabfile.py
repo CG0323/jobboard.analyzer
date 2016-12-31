@@ -16,7 +16,8 @@ def push():
 
 def update_server():
     with cd("/home/cg/jobboard.worker"):
-		run('git pull') 
+        run('git pull') 
+        run('chmod 777 -R .')
 	
 def deploy():
 	push()

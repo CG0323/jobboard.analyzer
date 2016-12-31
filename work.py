@@ -23,7 +23,6 @@ def analyze_all_job_all_skill():
     contents = get_all_contents()
     skills = get_all_skills()
     for content in contents:
-        time.sleep(5)
         print "====================================="
         print "anaylze job id = " + str(content["JobId"])
         skill_ids = []

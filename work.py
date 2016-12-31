@@ -5,8 +5,7 @@ import time
 
 def detect_skill(content, skill):
     text = content["Text"]
-    if skill["IsReg"] is True:
-        print "reg is true"
+    if skill["IsReg"] == True:
         pattern = re.compile(skill["Keywords"])
         match = pattern.search(text)
         if match:
@@ -14,9 +13,7 @@ def detect_skill(content, skill):
         else:
             return False
     else:
-        print "reg is false"
         keywords = skill["KeyWords"].split(",")
-        print keywords
         for keyword in keywords:
             if keyword in text:
                 return True
@@ -31,7 +28,7 @@ def analyze_all_job_all_skill():
         print "anaylze job id = " + str(content["JobId"])
         skill_ids = []
         for skill in skills:
-            if detect_skill(content, skill):
+            if detect_skill(content, skill) == True:
                 print "skill detected = " + skill["Name"]
                 skill_ids.append(skill["Id"])
         if len(skill_ids) > 0:

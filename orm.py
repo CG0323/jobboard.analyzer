@@ -64,6 +64,7 @@ def add_job_skills(job_id, skill_ids):
         connection.close()
 
 def clear_from_job_skill_table(skill_id):
+    print "clear skill id = " + str(skill_id)
     connection = get_connection()
     with connection.cursor() as cursor:
         sql = "DELETE FROM JobSkill WHERE SkillId =%s" 

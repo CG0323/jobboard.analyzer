@@ -1,9 +1,8 @@
-
 #!./env/bin/python
 from flask import Flask
 from worker import *
 
-app = Flask("Jobboard.Server")
+app = Flask(__name__)
 
 @app.route('api/tasks', methods=['POST']) 
 def create_task(): 

@@ -4,7 +4,12 @@ import re
 import time
 import logging
 
-logging.basicConfig(format='%(asctime)s %(message)s')
+logger = logging.getLogger()
+handler = logging.StreamHandler()
+formatter = logging.Formatter('%(asctime)s %(name)-12s %(levelname)-8s %(message)s')
+handler.setFormatter(formatter)
+logger.addHandler(handler)
+logger.setLevel(logging.DEBUG)
 
 def detect_skill(content, skill):
     text = content["Text"]
@@ -26,8 +31,6 @@ def analyze_all_job_all_skill():
     contents = get_all_contents()
     skills = get_all_skills()
     for content in contents:
-        print "====================================="
-        print "anaylze job id = " + str(content["JobId"])
         skill_ids = []
         for skill in skills:
             if detect_skill(content, skill) == True:
@@ -37,7 +40,7 @@ def analyze_all_job_all_skill():
             add_job_skills(content["JobId"], skill_ids)
 
 def analyze_all_job_one_skill(skill_id):
-    logging.info("analyze all jobs for skill id = %s", skill_id)
+    logger.info("analyze all jobs for skill id = %s", skill_id)
     sys.stdout.flush()
     clear_from_job_skill_table(skill_id)
     contents = get_all_contents()
@@ -51,7 +54,7 @@ def analyze_all_job_one_skill(skill_id):
             add_job_skills(content["JobId"], skill_ids)
 
 def analyze_one_job_all_skill(job_id):
-    logging.info("analyze job id = %s for all skills", job_id)
+    logger.info("analyze job id = %s for all skills", job_id)
     sys.stdout.flush()
     content = get_content(job_id)
     skills = get_all_skills()
@@ -64,7 +67,7 @@ def analyze_one_job_all_skill(job_id):
         add_job_skills(content["JobId"], skill_ids)   
 
 def clean_skill(skill_id):
-    logging.info("clean JobSkill for skill id = %s", skill_id)
+    logger.info("clean JobSkill for skill id = %s", skill_id)
     sys.stdout.flush()
     clear_from_job_skill_table(skill_id)
 

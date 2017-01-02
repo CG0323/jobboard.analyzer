@@ -4,7 +4,7 @@ import re
 import time
 import logging
 
-logger = logging.getLogger()
+logger = logging.getLogger("worker")
 handler = logging.StreamHandler()
 formatter = logging.Formatter('%(asctime)s %(name)-12s %(levelname)-8s %(message)s')
 handler.setFormatter(formatter)
@@ -61,7 +61,6 @@ def analyze_one_job_all_skill(job_id):
     skill_ids = []
     for skill in skills:
         if detect_skill(content, skill) == True:
-            print "skill detected = " + skill["Name"]
             skill_ids.append(skill["Id"])
     if len(skill_ids) > 0:
         add_job_skills(content["JobId"], skill_ids)   

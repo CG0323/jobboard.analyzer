@@ -15,12 +15,20 @@ def get_connection():
 
 def get_all_skills():
     connection = get_connection()
-    skills = []
     with connection.cursor() as cursor:
         sql = "SELECT * FROM Skill"
         cursor.execute(sql)
         results = cursor.fetchall()
         return results 
+    connection.close()
+
+def get_skill(skill_id):
+    connection = get_connection()
+    with connection.cursor() as cursor:
+        sql = "SELECT * FROM Skill WHERE Id =%s" 
+        cursor.execute(sql,(skill_id,))
+        results = cursor.fetchall()
+        return results[0] 
     connection.close()
 
 def get_all_contents():
@@ -33,6 +41,14 @@ def get_all_contents():
         return results 
     connection.close()
 
+def get_content(job_id):
+    connection = get_connection()
+    with connection.cursor() as cursor:
+        sql = "SELECT * FROM Content WHERE JobId =%s" 
+        cursor.execute(sql,(job_id,))
+        results = cursor.fetchall()
+        return results[0] 
+    connection.close()
 
 
 def add_job_skills(job_id, skill_ids):

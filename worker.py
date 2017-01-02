@@ -38,6 +38,7 @@ def analyze_all_job_all_skill():
 
 def analyze_all_job_one_skill(skill_id):
     logging.info("analyze all jobs for skill id = %s", skill_id)
+    sys.stdout.flush()
     clear_from_job_skill_table(skill_id)
     contents = get_all_contents()
     skill = get_skill(skill_id)
@@ -51,6 +52,7 @@ def analyze_all_job_one_skill(skill_id):
 
 def analyze_one_job_all_skill(job_id):
     logging.info("analyze job id = %s for all skills", job_id)
+    sys.stdout.flush()
     content = get_content(job_id)
     skills = get_all_skills()
     skill_ids = []
@@ -63,6 +65,7 @@ def analyze_one_job_all_skill(job_id):
 
 def clean_skill(skill_id):
     logging.info("clean JobSkill for skill id = %s", skill_id)
+    sys.stdout.flush()
     clear_from_job_skill_table(skill_id)
 
 if __name__=='__main__':

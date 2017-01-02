@@ -2,6 +2,7 @@
 from flask import Flask,abort,request,jsonify
 from worker import *
 import logging
+import logging.handlers
 
 handler = logging.handlers.RotatingFileHandler(LOG_FILE, maxBytes = 1024*1024, backupCount = 5)
 fmt = '%(asctime)s - %(filename)s:%(lineno)s - %(name)s - %(message)s'  

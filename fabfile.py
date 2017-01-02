@@ -19,6 +19,7 @@ def update_server():
         run('git checkout .') 
         run('git pull') 
         run('chmod 777 *')
+        run('supervisorctl restart jobboard.worker')
 	
 def deploy():
 	push()

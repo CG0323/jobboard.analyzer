@@ -1,6 +1,6 @@
 
 #!./env/bin/python
-from flask import * 
+import flask
 from worker import *
 
 app = Flask(__name__)

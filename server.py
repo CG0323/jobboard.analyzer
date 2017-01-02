@@ -1,24 +1,11 @@
 #!./env/bin/python
 from flask import Flask,abort,request,jsonify
 from worker import *
-import logging
-import logging.handlers
-
-handler = logging.handlers.RotatingFileHandler(LOG_FILE, maxBytes = 1024*1024, backupCount = 5)
-fmt = '%(asctime)s - %(filename)s:%(lineno)s - %(name)s - %(message)s'  
-  
-formatter = logging.Formatter(fmt)   
-handler.setFormatter(formatter)     
-  
-logger = logging.getLogger('test')    
-logger.addHandler(handler)          
-logger.setLevel(logging.DEBUG)  
 
 app = Flask(__name__)
 
 @app.route('/api/tasks', methods=['POST']) 
 def create_task(): 
-    logger.info(request.json)
     if not request.json or not 'type' in request.json or not 'id' in request.json: 
         abort(400) 
     task_type =  request.json['type']

@@ -18,5 +18,9 @@ def create_task():
         analyze_one_job_all_skill(target_id)
         return jsonify({'status': "success"}), 201
 
+@app.route('/api/tasks', methods=['GET']) 
+def get_tasks(): 
+    return jsonify({'reply': "CG Best"})
+
 if __name__ == '__main__': 
     app.run(port= 5007)

@@ -34,14 +34,13 @@ def analyze_all_job_all_skill():
             add_job_skills(content["JobId"], skill_ids)
 
 def analyze_all_job_one_skill(skill_id):
+    clear_from_job_skill_table(skill_id)
     contents = get_all_contents()
     skill = get_skill(skill_id)
     for content in contents:
-        print "====================================="
-        print "anaylze job id = " + str(content["JobId"])
         skill_ids = []
         if detect_skill(content, skill) == True:
-            print "skill detected = " + skill["Name"]
+            # print "skill detected = " + skill["Name"]
             skill_ids.append(skill["Id"])
         if len(skill_ids) > 0:
             add_job_skills(content["JobId"], skill_ids)
@@ -49,8 +48,6 @@ def analyze_all_job_one_skill(skill_id):
 def analyze_one_job_all_skill(job_id):
     content = get_content(job_id)
     skills = get_all_skills()
-    print "====================================="
-    print "anaylze job id = " + str(content["JobId"])
     skill_ids = []
     for skill in skills:
         if detect_skill(content, skill) == True:

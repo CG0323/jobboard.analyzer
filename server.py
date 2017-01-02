@@ -1,12 +1,14 @@
 #!./env/bin/python
 from flask import Flask,abort,request,jsonify
 from worker import *
+import sys
 
 app = Flask(__name__)
 
 @app.route('/api/tasks', methods=['POST']) 
 def create_task(): 
     print request.json['id']
+    sys.stdout.flush()
     if not request.json or not 'type' in request.json or not 'id' in request.json: 
         abort(400) 
     task_type =  request.json['type']

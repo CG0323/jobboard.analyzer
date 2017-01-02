@@ -3,6 +3,7 @@ from orm import *
 import re
 import time
 
+
 def detect_skill(content, skill):
     text = content["Text"]
     if skill["IsReg"] == True:

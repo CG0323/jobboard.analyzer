@@ -1,14 +1,11 @@
 #!./env/bin/python
 from flask import Flask,abort,request,jsonify
 from worker import *
-import sys
 
 app = Flask(__name__)
 
 @app.route('/api/tasks', methods=['POST']) 
 def create_task(): 
-    print request.json['id']
-    sys.stdout.flush()
     if not request.json or not 'type' in request.json or not 'id' in request.json: 
         abort(400) 
     task_type =  request.json['type']
@@ -19,10 +16,8 @@ def create_task():
     elif task_type == "job":
         analyze_one_job_all_skill(target_id)
         return jsonify({'status': "success"}), 201
-
-@app.route('/api/tasks', methods=['GET']) 
-def get_tasks(): 
-    return jsonify({'reply': "CG Best"})
-
+    elif task_type == "clean":
+        clean_skill(target_id)
+        return jsonify({'status': "success"}), 201
 if __name__ == '__main__': 
     app.run(port= 5007)

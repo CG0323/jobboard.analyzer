@@ -2,7 +2,9 @@
 from orm import *
 import re
 import time
+import logging
 
+logging.basicConfig(format='%(asctime)s %(message)s')
 
 def detect_skill(content, skill):
     text = content["Text"]
@@ -35,6 +37,7 @@ def analyze_all_job_all_skill():
             add_job_skills(content["JobId"], skill_ids)
 
 def analyze_all_job_one_skill(skill_id):
+    logging.info("analyze all jobs for skill id = %s", skill_id)
     clear_from_job_skill_table(skill_id)
     contents = get_all_contents()
     skill = get_skill(skill_id)
@@ -47,6 +50,7 @@ def analyze_all_job_one_skill(skill_id):
             add_job_skills(content["JobId"], skill_ids)
 
 def analyze_one_job_all_skill(job_id):
+    logging.info("analyze job id = %s for all skills", job_id)
     content = get_content(job_id)
     skills = get_all_skills()
     skill_ids = []
@@ -56,6 +60,10 @@ def analyze_one_job_all_skill(job_id):
             skill_ids.append(skill["Id"])
     if len(skill_ids) > 0:
         add_job_skills(content["JobId"], skill_ids)   
+
+def clean_skill(skill_id):
+    logging.info("clean JobSkill for skill id = %s", skill_id)
+    clear_from_job_skill_table(skill_id)
 
 if __name__=='__main__':
     analyze_all_job_all_skill()

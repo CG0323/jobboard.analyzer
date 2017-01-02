@@ -4,7 +4,7 @@ from worker import *
 
 app = Flask(__name__)
 
-@app.route('api/tasks', methods=['POST']) 
+@app.route('/api/tasks', methods=['POST']) 
 def create_task(): 
     if not request.json or not 'type' in request.json or 'id' in request.json: 
         abort(400) 

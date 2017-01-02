@@ -19,5 +19,9 @@ def create_task():
     elif task_type == "clean":
         clean_skill(target_id)
         return jsonify({'status': "success"}), 201
+
+@app.route('/api/tasks', methods=['get']) 
+def test():
+    return jsonify({'test': "1"}), 200
 if __name__ == '__main__': 
     app.run(port= 5007)

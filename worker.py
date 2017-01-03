@@ -13,8 +13,11 @@ logger.setLevel(logging.DEBUG)
 
 def detect_skill(content, skill):
     text = content["Text"]
+    logger.info(skill["KeyWords"])
+    logger.info(skill["IsReg"])
     if skill["IsReg"] == True:
         pattern = re.compile(skill["KeyWords"])
+        logger.info(pattern)
         match = pattern.search(text)
         if match:
             return True

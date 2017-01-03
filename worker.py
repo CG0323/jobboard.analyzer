@@ -13,8 +13,7 @@ logger.setLevel(logging.DEBUG)
 
 def detect_skill(content, skill):
     text = content["Text"]
-    logger.debug(skill)
-    if skill["IsReg"] == 1:
+    if skill["IsReg"] == '\x01':
         pattern = re.compile(skill["KeyWords"])
         logger.info("I am here")
         match = pattern.search(text)
@@ -47,7 +46,6 @@ def analyze_all_job_one_skill(skill_id):
     clear_from_job_skill_table(skill_id)
     contents = get_all_contents()
     skill = get_skill(skill_id)
-    logger.info(skill)
     for content in contents:
         skill_ids = []
         if detect_skill(content, skill) == True:

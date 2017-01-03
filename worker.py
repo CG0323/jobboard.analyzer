@@ -15,7 +15,6 @@ def detect_skill(content, skill):
     text = content["Text"]
     if skill["IsReg"] == '\x01':
         pattern = re.compile(skill["KeyWords"])
-        logger.info("I am here")
         match = pattern.search(text)
         if match:
             return True
@@ -72,5 +71,4 @@ def clean_skill(skill_id):
     clear_from_job_skill_table(skill_id)
 
 if __name__=='__main__':
-    # analyze_all_job_all_skill()
-    analyze_all_job_one_skill(84)
+    analyze_all_job_all_skill()

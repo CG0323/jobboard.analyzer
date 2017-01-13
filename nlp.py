@@ -34,7 +34,7 @@ def process_all_contents():
         for line in lines:
             keep = False
             for skill in skills:
-                if detect_skill(line, skill) == True:
+                if detect_skill(line, skill) == True and "developer" not in line:
                     keep = True
                     break
                 if detect_keepsigns(line) == True:

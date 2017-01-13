@@ -30,7 +30,7 @@ def process_all_contents():
     contents = get_all_contents()
     skills = get_all_skills()
     for content in contents:
-        lines = content['Text'].split('\\n')
+        lines = content['Text'].split('\n')
         for line in lines:
             keep = False
             for skill in skills:

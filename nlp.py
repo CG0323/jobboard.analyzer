@@ -27,9 +27,14 @@ def detect_keepsigns(line):
     return False
 
 def process_all_contents():
+    text_file = open("all.txt", "w")
     contents = get_all_contents()
     skills = get_all_skills()
+    total = len(contents)
+    i = 0
     for content in contents:
+        i = i + 1
+        print "handle " + str(i) + "/" + str(total) 
         lines = content['Text'].split('\n')
         for line in lines:
             keep = False
@@ -41,12 +46,11 @@ def process_all_contents():
                     keep = True
                     break
             if keep == True:
-                print line
-                time.sleep(2)
-        
-
-
-
+                line = line.replace("*","")
+                text_file.write(line)
+                
+    text_file.close()
+                
 
 if __name__=='__main__':
     process_all_contents()

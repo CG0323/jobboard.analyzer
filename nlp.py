@@ -47,7 +47,7 @@ def process_all_contents():
                     break
             if keep == True:
                 line = line.replace("*","")
-                text_file.write(line)
+                text_file.write(line.endcode('utf8'))
                 
     text_file.close()
                 

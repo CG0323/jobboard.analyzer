@@ -40,8 +40,9 @@ def process_all_contents():
                 if detect_keepsigns(line) == True:
                     keep = True
                     break
-            if keep:
+            if keep == True:
                 print line
+                time.sleep(2)
         
 
 

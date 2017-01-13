@@ -48,6 +48,7 @@ def process_all_contents():
             if keep == True:
                 line = line.replace("*","")
                 text_file.write(line.encode('utf8'))
+                text_file.write("\n")
                 
     text_file.close()
                 

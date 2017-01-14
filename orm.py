@@ -51,13 +51,15 @@ def get_content(job_id):
     connection.close()
 
 
-def add_job_skills(job_id, skill_ids):
+def add_job_skills(job_id, skills_with_level):
     connection = get_connection()
     try:
         with connection.cursor() as cursor:
-            sql = "INSERT IGNORE INTO JobSkill (JobId,SkillId) VALUES(%s,%s)"
-            for skill_id in skill_ids:
-                data = (job_id, skill_id)
+            sql = "INSERT IGNORE INTO JobSkill (JobId,SkillId,Level) VALUES(%s,%s,%s)"
+            for skill in skills_with_level:
+                data = (job_id, skill["id"], skill["level"])
+                print skill["id"]
+                print skill["level"]
                 cursor.execute(sql, data)
             connection.commit()
     finally:

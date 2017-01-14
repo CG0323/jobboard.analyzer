@@ -51,7 +51,25 @@ def process_all_contents():
                 text_file.write("\n")
                 
     text_file.close()
+
+def save_all_contents():
+    text_file = open("all.txt", "w")
+    contents = get_all_contents()
+    skills = get_all_skills()
+    total = len(contents)
+    i = 0
+    for content in contents:
+        i = i + 1
+        print "handle " + str(i) + "/" + str(total) 
+        lines = content['Text'].split('\n')
+        for line in lines:
+            if line != '':
+                line = line.replace("*","")
+                text_file.write(line.encode('utf8'))
+                text_file.write("\n")
+                
+    text_file.close()
                 
 
 if __name__=='__main__':
-    process_all_contents()
+    save_all_contents()

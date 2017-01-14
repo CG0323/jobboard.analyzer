@@ -70,7 +70,7 @@ def analyze_all_job_all_skill():
         for skill in skills:
             required_level = analyze_skill(content, skill)
             if required_level > 0:
-                print "skill detected = " + skill["Name"] + ", require level " + required_level
+                print "skill detected = " + skill["Name"] + ", require level " + str(required_level)
                 skills_with_level.append({"id":skill["Id"],"level":required_level})
         if len(skills_with_level) > 0:
             add_job_skills(content["JobId"], skills_with_level)
@@ -85,7 +85,7 @@ def analyze_all_job_one_skill(skill_id):
         skills_with_level = []
         required_level = analyze_skill(content, skill)
         if required_level > 0:
-            print "skill detected = " + skill["Name"] + ", require level " + required_level
+            print "skill detected = " + skill["Name"] + ", require level " + str(required_level)
             skills_with_level.append({"id":skill["Id"],"level":required_level})
         if len(skills_with_level) > 0:
             add_job_skills(content["JobId"], skills_with_level)
@@ -99,7 +99,7 @@ def analyze_one_job_all_skill(job_id):
     for skill in skills:
         required_level = analyze_skill(content, skill)
         if required_level > 0:
-            print "skill detected = " + skill["Name"] + ", require level " + required_level
+            print "skill detected = " + skill["Name"] + ", require level " + str(required_level)
             skills_with_level.append({"id":skill["Id"],"level":required_level})
     if len(skills_with_level) > 0:
         add_job_skills(content["JobId"], skills_with_level)   

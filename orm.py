@@ -58,8 +58,6 @@ def add_job_skills(job_id, skills_with_level):
             sql = "INSERT IGNORE INTO JobSkill (JobId,SkillId,Level) VALUES(%s,%s,%s)"
             for skill in skills_with_level:
                 data = (job_id, skill["id"], skill["level"])
-                print skill["id"]
-                print skill["level"]
                 cursor.execute(sql, data)
             connection.commit()
     finally:

@@ -11,6 +11,9 @@ handler.setFormatter(formatter)
 logger.addHandler(handler)
 logger.setLevel(logging.DEBUG)
 
+level3_keywords = ["excellent","demonstrated","solid","strong","proven","in-depth","years","extensive","proficent"]
+level2_keywords = ["good","experience","knowledge","familiar","familiarity"]
+level1_keywords = ["asset","nice to have","optional","plus","bonus"]
 def detect_skill(content, skill):
     text = content["Text"]
     if skill["IsReg"] == '\x01':
@@ -27,17 +30,50 @@ def detect_skill(content, skill):
                 return True
         return False
 
+def detect_skill_in_line(line, skill):
+    if skill["IsReg"] == '\x01':
+        pattern = re.compile(skill["KeyWords"])
+        match = pattern.search(line)
+        if match:
+            return True
+        else:
+            return False
+    else:
+        keywords = skill["KeyWords"].split(",")
+        for keyword in keywords:
+            if keyword in line:
+                return True
+        return False
+
+def get_required_level(line):
+    for keyword in level3_keywords:
+        if keyword in line:
+            return 3
+    for keyword in level1_keywords:
+        if keyword in line:
+            return 1
+    return 2
+
+def analyze_skill(content, skill):
+    text = content["Text"]
+    lines = text.split('\n')
+    for line in lines:
+        if detect_skill_in_line(line,skill) == True:
+            return get_required_level(line)
+    return 0
+
 def analyze_all_job_all_skill():
     contents = get_all_contents()
     skills = get_all_skills()
     for content in contents:
-        skill_ids = []
+        skills_with_level = []
         for skill in skills:
-            if detect_skill(content, skill) == True:
-                print "skill detected = " + skill["Name"]
-                skill_ids.append(skill["Id"])
-        if len(skill_ids) > 0:
-            add_job_skills(content["JobId"], skill_ids)
+            required_level = analyze_skill(content, skill)
+            if required_level > 0:
+                print "skill detected = " + skill["Name"] + ", require level " + required_level
+                skills_with_level.append({"id":skill["Id"],"level":required_level})
+        if len(skills_with_level) > 0:
+            add_job_skills(content["JobId"], skills_with_level)
 
 def analyze_all_job_one_skill(skill_id):
     logger.info("analyze all jobs for skill id = %s", skill_id)
@@ -46,24 +82,27 @@ def analyze_all_job_one_skill(skill_id):
     contents = get_all_contents()
     skill = get_skill(skill_id)
     for content in contents:
-        skill_ids = []
-        if detect_skill(content, skill) == True:
-            # print "skill detected = " + skill["Name"]
-            skill_ids.append(skill["Id"])
-        if len(skill_ids) > 0:
-            add_job_skills(content["JobId"], skill_ids)
+        skills_with_level = []
+        required_level = analyze_skill(content, skill)
+        if required_level > 0:
+            print "skill detected = " + skill["Name"] + ", require level " + required_level
+            skills_with_level.append({"id":skill["Id"],"level":required_level})
+        if len(skills_with_level) > 0:
+            add_job_skills(content["JobId"], skills_with_level)
 
 def analyze_one_job_all_skill(job_id):
     logger.info("analyze job id = %s for all skills", job_id)
     sys.stdout.flush()
     content = get_content(job_id)
     skills = get_all_skills()
-    skill_ids = []
+    skills_with_level = []
     for skill in skills:
-        if detect_skill(content, skill) == True:
-            skill_ids.append(skill["Id"])
-    if len(skill_ids) > 0:
-        add_job_skills(content["JobId"], skill_ids)   
+        required_level = analyze_skill(content, skill)
+        if required_level > 0:
+            print "skill detected = " + skill["Name"] + ", require level " + required_level
+            skills_with_level.append({"id":skill["Id"],"level":required_level})
+    if len(skills_with_level) > 0:
+        add_job_skills(content["JobId"], skills_with_level)   
 
 def clean_skill(skill_id):
     logger.info("clean JobSkill for skill id = %s", skill_id)

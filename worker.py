@@ -11,24 +11,9 @@ handler.setFormatter(formatter)
 logger.addHandler(handler)
 logger.setLevel(logging.DEBUG)
 
-level3_keywords = ["excellent","demonstrated","solid","strong","proven","in-depth","years","extensive","proficent"]
-level2_keywords = ["good","experience","knowledge","familiar","familiarity"]
-level1_keywords = ["asset","nice to have","optional","plus","bonus"]
-def detect_skill(content, skill):
-    text = content["Text"]
-    if skill["IsReg"] == '\x01':
-        pattern = re.compile(skill["KeyWords"])
-        match = pattern.search(text)
-        if match:
-            return True
-        else:
-            return False
-    else:
-        keywords = skill["KeyWords"].split(",")
-        for keyword in keywords:
-            if keyword in text:
-                return True
-        return False
+LEVEL3_KEYWORDS = ["excellent", "demonstrated", "solid", "strong", "proven", "in-depth", "years", "extensive", "proficent"]
+LEVEL2_KEYWORDS = ["good", "experience", "knowledge", "familiar", "familiarity"]
+LEVEL1_KEYWORDS = ["asset", "nice to have", "optional", "plus", "bonus", "not mandatory"]
 
 def detect_skill_in_line(line, skill):
     if skill["IsReg"] == '\x01':
@@ -46,10 +31,10 @@ def detect_skill_in_line(line, skill):
         return False
 
 def get_required_level(line):
-    for keyword in level3_keywords:
+    for keyword in LEVEL3_KEYWORDS:
         if keyword in line:
             return 3
-    for keyword in level1_keywords:
+    for keyword in LEVEL1_KEYWORDS:
         if keyword in line:
             return 1
     return 2
@@ -63,6 +48,7 @@ def analyze_skill(content, skill):
     return 0
 
 def analyze_all_job_all_skill():
+    clear_all_from_job_skill_table()
     contents = get_all_contents()
     skills = get_all_skills()
     for content in contents:

@@ -70,3 +70,11 @@ def clear_from_job_skill_table(skill_id):
         cursor.execute(sql,(skill_id,))
         connection.commit()
     connection.close()
+
+def clear_all_from_job_skill_table():
+    connection = get_connection()
+    with connection.cursor() as cursor:
+        sql = "DELETE FROM JobSkill" 
+        cursor.execute(sql)
+        connection.commit()
+    connection.close()

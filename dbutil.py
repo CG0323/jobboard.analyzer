@@ -1,14 +1,19 @@
+"""A collection of database manipulation functions"""
 #!./env/bin/python
 import pymysql.cursors
 import pymysql as my
 import time
 import sys
+from ConfigParser import SafeConfigParser
+
+config = SafeConfigParser()
+config.read('config.ini')
 
 def get_connection():
     connection = pymysql.connect(host='localhost',
-                                    user='cg',
-                                    password='123456',
-                                    db='jobboard',
+                                    user=config.get('main','dbun'),
+                                    password=config.get('main','dbpwd'),
+                                    db=config.get('main','dbname'),
                                     charset='utf8mb4',
                                     cursorclass=pymysql.cursors.DictCursor)
     return connection

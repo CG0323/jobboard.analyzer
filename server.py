@@ -1,5 +1,7 @@
+"""This is a super lightweight flask server which receive task 
+request from jobboard.backend and do some text processing tasks"""
 #!./env/bin/python
-from flask import Flask,abort,request,jsonify
+from flask import Flask, abort, request, jsonify
 from worker import *
 
 app = Flask(__name__)
@@ -20,8 +22,5 @@ def create_task():
         clean_skill(target_id)
         return jsonify({'status': "success"}), 201
 
-@app.route('/api/tasks', methods=['get']) 
-def test():
-    return jsonify({'test': "1"}), 200
 if __name__ == '__main__': 
     app.run(port= 5007)

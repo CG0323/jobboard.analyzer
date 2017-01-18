@@ -11,7 +11,7 @@ env.key_filename = 'C:\Users\mac\Documents\id_rsa_mopyfish'
 
 def push():
     local("git add .")
-    local("git commit -m 'auto_update'")
+    local("git commit")
     local("git push")
 
 def update_server():

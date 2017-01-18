@@ -1,5 +1,5 @@
-"""A collection of text processing task functions"""
 #!./env/bin/python
+"""A collection of text processing task functions"""
 from dbutil import *
 import re
 import time

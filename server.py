@@ -1,6 +1,6 @@
+#!./env/bin/python
 """This is a super lightweight flask server which receive task 
 request from jobboard.backend and do some text processing tasks"""
-#!./env/bin/python
 from flask import Flask, abort, request, jsonify
 from worker import *
 
